@@ -11,15 +11,12 @@ export default Ember.Controller.extend({
     actions: {
 
         cancelAction() {
-            //window.history.back();
         },
 
         submitAction() {
-            console.log('submitAction');
         },
 
         deleteAction() {
-            console.log('deleteAction');
             window.alert('Are you sure you want to delete?');
         }
 

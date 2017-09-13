@@ -13,11 +13,9 @@ export default Ember.Controller.extend({
     actions: {
 
         cancel() {
-            //window.history.back();
         },
 
         submitAction() {
-            console.log('submitAction');
         },
 
         wizardStepChanged(wizardStep) {
