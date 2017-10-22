@@ -1,10 +1,12 @@
-import Ember from 'ember';
+import { isPresent } from '@ember/utils';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
     tagName: '',
 
-    isCurrent: Ember.computed('wizardCurrentState.currentStep', function() {
-        if (Ember.isPresent(this.get('wizardCurrentState'))) {
+    isCurrent: computed('wizardCurrentState.currentStep', function() {
+        if (isPresent(this.get('wizardCurrentState'))) {
             if (this.get('stepId') === this.get('wizardCurrentState.currentStep')) {
                 return true;
             }
@@ -13,8 +15,8 @@ export default Ember.Component.extend({
         return false;
     }),
 
-    slidingOut: Ember.computed('wizardCurrentState.animating', function() {
-        if (Ember.isPresent(this.get('wizardCurrentState'))) {
+    slidingOut: computed('wizardCurrentState.animating', function() {
+        if (isPresent(this.get('wizardCurrentState'))) {
             if (this.get('isCurrent') && this.get('wizardCurrentState.animating')) {
                 if (this.get('wizardCurrentState.direction') === 'next') {
                     this.set('slidingInClasses', 'exit slide-left');
@@ -29,9 +31,9 @@ export default Ember.Component.extend({
         return false;
     }),
 
-    slidingIn: Ember.computed('wizardCurrentState.animating', function() {
+    slidingIn: computed('wizardCurrentState.animating', function() {
         let wizardCurrentState = this.get('wizardCurrentState');
-        if (Ember.isPresent(wizardCurrentState)) {
+        if (isPresent(wizardCurrentState)) {
             if (wizardCurrentState.direction === 'next') {
                 let nextStepId = Number(wizardCurrentState.currentStep) + 1;
                 if (Number(this.get('stepId')) === nextStepId) {

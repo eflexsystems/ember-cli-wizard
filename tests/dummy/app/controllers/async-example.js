@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import { later } from '@ember/runloop';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
 
     wizardData: [
         {'step_id': '1', 'header_label': '1. First Step', 'hasAction': true},
@@ -23,7 +24,7 @@ export default Ember.Controller.extend({
         wizardStepChanged(wizardStep) {
             this.set('loading', true);
             if (wizardStep['step_id'] === '1') {
-                Ember.run.later(() => {
+                later(() => {
                     this.set('wizardShowNextStep', true);
                     this.set('loading', false);
                 }, 2000);

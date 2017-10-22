@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
 
     wizardData: [
         {'step_id': '1', 'header_label': '1. Account'},

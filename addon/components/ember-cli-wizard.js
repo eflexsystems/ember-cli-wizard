@@ -1,6 +1,9 @@
-import Ember from 'ember';
+import { later } from '@ember/runloop';
+import { isPresent } from '@ember/utils';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
     currentStep: '1',
 
     classNameBindings: ['wellClass'],
@@ -11,32 +14,32 @@ export default Ember.Component.extend({
 
     showWell: true,
 
-    previousBtnLabel: Ember.computed('buttonLabels', function() {
-        if (Ember.isPresent(this.get('buttonLabels.prevLabel'))) {
+    previousBtnLabel: computed('buttonLabels', function() {
+        if (isPresent(this.get('buttonLabels.prevLabel'))) {
             return this.get('buttonLabels.prevLabel');
         }
 
         return 'Previous';
     }),
 
-    nextBtnLabel: Ember.computed('buttonLabels', function() {
-        if (Ember.isPresent(this.get('buttonLabels.nextLabel'))) {
+    nextBtnLabel: computed('buttonLabels', function() {
+        if (isPresent(this.get('buttonLabels.nextLabel'))) {
             return this.get('buttonLabels.nextLabel');
         }
 
         return 'Next';
     }),
 
-    cancelBtnLabel: Ember.computed('buttonLabels', function() {
-        if (Ember.isPresent(this.get('buttonLabels.cancelLabel'))) {
+    cancelBtnLabel: computed('buttonLabels', function() {
+        if (isPresent(this.get('buttonLabels.cancelLabel'))) {
             return this.get('buttonLabels.cancelLabel');
         }
 
         return 'Cancel';
     }),
 
-    finishBtnLabel: Ember.computed('buttonLabels', function() {
-        if (Ember.isPresent(this.get('buttonLabels.finishLabel'))) {
+    finishBtnLabel: computed('buttonLabels', function() {
+        if (isPresent(this.get('buttonLabels.finishLabel'))) {
             return this.get('buttonLabels.finishLabel');
         }
 
@@ -50,7 +53,7 @@ export default Ember.Component.extend({
         'cancelLabel': 'Cancel'
     },
 
-    wellClass: Ember.computed('showWell', function() {
+    wellClass: computed('showWell', function() {
         if (this.get('showWell') === true) {
             return 'well';
         }
@@ -74,7 +77,7 @@ export default Ember.Component.extend({
         }
     },
 
-    isLastStep: Ember.computed('currentStep', function() {
+    isLastStep: computed('currentStep', function() {
         if (Number(this.get('currentStep')) === this.get('wizardData.length')) {
             return true;
         }
@@ -82,7 +85,7 @@ export default Ember.Component.extend({
         return false;
     }),
 
-    isFirstStep: Ember.computed('currentStep', function() {
+    isFirstStep: computed('currentStep', function() {
         if (Number(this.get('currentStep')) === 1) {
             return true;
         }
@@ -102,7 +105,7 @@ export default Ember.Component.extend({
 
         if (this.get('animate')) {
             // Stop the animation after a while
-            Ember.run.later(this, function() {
+            later(this, function() {
                 this._updateCurrentStep(direction);
                 this.set('isAnimating', false);
             }, this.get('animationDuration'));
@@ -133,7 +136,7 @@ export default Ember.Component.extend({
                     }
                 });
 
-                if (Ember.isPresent(currentStepObj['hasAction']) && currentStepObj['hasAction'] === true) {
+                if (isPresent(currentStepObj['hasAction']) && currentStepObj['hasAction'] === true) {
                     this.set('wizardShowNextStep', false);
                     this.sendAction('wizardStepChangeAction', currentStepObj);
                 } else {
