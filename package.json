@@ -1,5 +1,5 @@
 {
-  "name": "eflex-ember-cli-wizard",
+  "name": "@eflexsystems/ember-cli-wizard",
   "version": "0.1.12",
   "description": "Ember wizard component",
   "keywords": [
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/ritesh83/ember-cli-wizard.git"
+    "url": "git://github.com/eflexsystems/ember-cli-wizard.git"
   },
   "scripts": {
     "build": "ember build",
@@ -50,9 +50,5 @@
   },
   "engines": {
     "node": "^4.5 || 6.* || >= 7.*"
-  },
-  "ember-addon": {
-    "configPath": "tests/dummy/config",
-    "demoURL": "https://ritesh83.github.io/ember-cli-wizard/#/basic-example"
   }
 }
