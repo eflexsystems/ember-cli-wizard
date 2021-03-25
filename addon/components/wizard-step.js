@@ -6,13 +6,7 @@ export default Component.extend({
   tagName: '',
 
   isCurrent: computed('stepId', 'wizardCurrentState.currentStep', function () {
-    if (isPresent(this.wizardCurrentState)) {
-      if (this.stepId === this.get('wizardCurrentState.currentStep')) {
-        return true;
-      }
-    }
-
-    return false;
+    return this.stepId === this.wizardCurrentState?.currentStep;
   }),
 
   slidingOut: computed(
@@ -20,8 +14,8 @@ export default Component.extend({
     'wizardCurrentState.{animating,direction}',
     function () {
       if (isPresent(this.wizardCurrentState)) {
-        if (this.isCurrent && this.get('wizardCurrentState.animating')) {
-          if (this.get('wizardCurrentState.direction') === 'next') {
+        if (this.isCurrent && this.wizardCurrentState?.animating) {
+          if (this.wizardCurrentState?.direction === 'next') {
             this.set('slidingInClasses', 'exit slide-left');
           } else {
             this.set('slidingInClasses', 'exit slide-right');

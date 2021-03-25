@@ -11,53 +11,6 @@ export default Component.extend({
 
   showWell: true,
 
-  previousBtnLabel: computed('buttonLabels.prevLabel', function () {
-    if (isPresent(this.get('buttonLabels.prevLabel'))) {
-      return this.get('buttonLabels.prevLabel');
-    }
-
-    return 'Previous';
-  }),
-
-  nextBtnLabel: computed('buttonLabels.nextLabel', function () {
-    if (isPresent(this.get('buttonLabels.nextLabel'))) {
-      return this.get('buttonLabels.nextLabel');
-    }
-
-    return 'Next';
-  }),
-
-  cancelBtnLabel: computed('buttonLabels.cancelLabel', function () {
-    if (isPresent(this.get('buttonLabels.cancelLabel'))) {
-      return this.get('buttonLabels.cancelLabel');
-    }
-
-    return 'Cancel';
-  }),
-
-  finishBtnLabel: computed('buttonLabels.finishLabel', function () {
-    if (isPresent(this.get('buttonLabels.finishLabel'))) {
-      return this.get('buttonLabels.finishLabel');
-    }
-
-    return 'Finish';
-  }),
-
-  buttonLabels: {
-    prevLabel: 'Previous',
-    nextLabel: 'Next',
-    finishLabel: 'Finish',
-    cancelLabel: 'Cancel',
-  },
-
-  wellClass: computed('showWell', function () {
-    if (this.showWell === true) {
-      return 'well';
-    }
-
-    return '';
-  }),
-
   animate: true,
 
   animationDuration: 300,
@@ -66,29 +19,53 @@ export default Component.extend({
 
   direction: null,
 
-  didUpdateAttrs() {
-    this._super(...arguments);
+  previousBtnLabel: computed('buttonLabels.prevLabel', function () {
+    return this.buttonLabels?.prevLabel ?? 'Previous';
+  }),
 
-    if (this.wizardShowNextStep === true) {
-      this.changeWizardStep('next');
-    }
-  },
+  nextBtnLabel: computed('buttonLabels.nextLabel', function () {
+    return this.buttonLabels?.nextLabel ?? 'Next';
+  }),
+
+  cancelBtnLabel: computed('buttonLabels.cancelLabel', function () {
+    return this.buttonLabels?.cancelLabel ?? 'Cancel';
+  }),
+
+  finishBtnLabel: computed('buttonLabels.finishLabel', function () {
+    return this.buttonLabels?.finishLabel ?? 'Finish';
+  }),
+
+  wellClass: computed('showWell', function () {
+    return this.showWell ? 'well' : '';
+  }),
 
   isLastStep: computed('currentStep', 'wizardData.length', function () {
-    if (Number(this.currentStep) === this.get('wizardData.length')) {
-      return true;
-    }
-
-    return false;
+    return Number(this.currentStep) === this.wizardData?.length;
   }),
 
   isFirstStep: computed('currentStep', function () {
-    if (Number(this.currentStep) === 1) {
-      return true;
-    }
-
-    return false;
+    return Number(this.currentStep) === 1;
   }),
+
+  init() {
+    this._super(...arguments);
+    if (!this.buttonLabels) {
+      this.set('buttonLabels', {
+        prevLabel: 'Previous',
+        nextLabel: 'Next',
+        finishLabel: 'Finish',
+        cancelLabel: 'Cancel',
+      });
+    }
+  },
+
+  didUpdateAttrs() {
+    this._super(...arguments);
+
+    if (this.wizardShowNextStep) {
+      this.changeWizardStep('next');
+    }
+  },
 
   changeWizardStep(direction) {
     if (this.animate) {
@@ -128,19 +105,13 @@ export default Component.extend({
   actions: {
     incrementStep() {
       if (this.isLastStep) {
-        // perform submit action
         this.sendAction('submitAction');
       } else {
-        let currentStepObj = this.wizardData.find((item) => {
-          if (item['step_id'] === this.currentStep) {
-            return true;
-          }
-        });
+        let currentStepObj = this.wizardData.find(
+          (item) => item.step_id === this.currentStep
+        );
 
-        if (
-          isPresent(currentStepObj['hasAction']) &&
-          currentStepObj['hasAction'] === true
-        ) {
+        if (isPresent(currentStepObj.hasAction) && currentStepObj.hasAction) {
           this.set('wizardShowNextStep', false);
           this.sendAction('wizardStepChangeAction', currentStepObj);
         } else {
