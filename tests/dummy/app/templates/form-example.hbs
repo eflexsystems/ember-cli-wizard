@@ -2,7 +2,7 @@
 
 <form class="form-horizontal">
     <EmberCliWizard @wizardData={{this.wizardData}} @submitAction="submitAction" @cancelAction="cancelAction" @animationDuration={{700}} as |currentState|>
-        <currentState.step @stepId="1" @wizardCurrentState={{currentState}}>
+        <currentState.step @stepId={{1}} @wizardCurrentState={{currentState}}>
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 control-label" for="title">Username</label>
                 <div class="col-xs-12 col-sm-9" data-test="loadable-title">
@@ -23,7 +23,7 @@
             </div>
         </currentState.step>
 
-        <currentState.step @stepId="2" @wizardCurrentState={{currentState}}>
+        <currentState.step @stepId={{2}} @wizardCurrentState={{currentState}}>
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 control-label" for="title">First Name</label>
                 <div class="col-xs-12 col-sm-9" data-test="loadable-title">
@@ -44,7 +44,7 @@
             </div>
         </currentState.step>
 
-        <currentState.step @stepId="3" @wizardCurrentState={{currentState}}>
+        <currentState.step @stepId={{3}} @wizardCurrentState={{currentState}}>
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 control-label" for="title">Street</label>
                 <div class="col-xs-12 col-sm-9" data-test="loadable-title">

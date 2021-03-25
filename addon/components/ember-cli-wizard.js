@@ -5,7 +5,7 @@ import Component from '@ember/component';
 
 export default Component.extend({
   tagName: '',
-  currentStep: '1',
+  currentStep: 1,
 
   showHeader: true,
 
@@ -40,12 +40,10 @@ export default Component.extend({
   }),
 
   isLastStep: computed('currentStep', 'wizardData.length', function () {
-    return Number(this.currentStep) === this.wizardData?.length;
+    return this.currentStep === this.wizardData?.length;
   }),
 
-  isFirstStep: computed('currentStep', function () {
-    return Number(this.currentStep) === 1;
-  }),
+  isFirstStep: computed.equal('currentStep', 1),
 
   init() {
     this._super(...arguments);
@@ -95,9 +93,9 @@ export default Component.extend({
   _updateCurrentStep(direction) {
     let currentStep;
     if (direction === 'next') {
-      currentStep = Number(this.currentStep) + 1 + '';
+      currentStep = this.currentStep + 1;
     } else {
-      currentStep = Number(this.currentStep) - 1 + '';
+      currentStep = this.currentStep - 1;
     }
     this.set('currentStep', currentStep);
   },

@@ -33,14 +33,14 @@ export default Component.extend({
     let wizardCurrentState = this.wizardCurrentState;
     if (isPresent(wizardCurrentState)) {
       if (wizardCurrentState.direction === 'next') {
-        let nextStepId = Number(wizardCurrentState.currentStep) + 1;
-        if (Number(this.stepId) === nextStepId) {
+        let nextStepId = wizardCurrentState.currentStep + 1;
+        if (this.stepId === nextStepId) {
           this.set('slidingInClasses', 'enter slide-left');
           return true;
         }
       } else {
-        let prevStepId = Number(wizardCurrentState.currentStep) - 1;
-        if (Number(this.stepId) === prevStepId) {
+        let prevStepId = wizardCurrentState.currentStep - 1;
+        if (this.stepId === prevStepId) {
           this.set('slidingInClasses', 'enter slide-right');
           return true;
         }

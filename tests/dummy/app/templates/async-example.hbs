@@ -1,17 +1,17 @@
 <h2 style="margin-top:0px">Async Example</h2>
 
 <EmberCliWizard @wizardData={{this.wizardData}} @submitAction="submitAction" @cancelAction="cancelAction" @wizardShowNextStep={{this.wizardShowNextStep}} @wizardStepChangeAction="wizardStepChanged" @animationDuration={{700}} as |currentState|>
-    <currentState.step @stepId="1" @wizardCurrentState={{currentState}}>
+    <currentState.step @stepId={{1}} @wizardCurrentState={{currentState}}>
         {{#unless this.loading}}
             <p>Step 1</p>
         {{/unless}}
     </currentState.step>
 
-    <currentState.step @stepId="2" @wizardCurrentState={{currentState}}>
+    <currentState.step @stepId={{2}} @wizardCurrentState={{currentState}}>
         <p>Step 2</p>
     </currentState.step>
 
-    <currentState.step @stepId="3" @wizardCurrentState={{currentState}}>
+    <currentState.step @stepId={{3}} @wizardCurrentState={{currentState}}>
         <p>Step 3</p>
     </currentState.step>
 </EmberCliWizard>
