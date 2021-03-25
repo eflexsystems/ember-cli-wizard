@@ -19,7 +19,23 @@ module.exports = {
   env: {
     browser: true,
   },
-  rules: {},
+  rules: {
+    'no-unused-vars': 'off',
+    'ember/no-get': 'off',
+    'ember/closure-actions': 'off',
+    'ember/no-actions-hash': 'off',
+    'ember/no-side-effects': 'off',
+    'ember/no-classic-classes': 'off',
+    'ember/avoid-leaking-state-in-ember-objects': 'off',
+    'ember/no-classic-components': 'off',
+    'ember/no-component-lifecycle-hooks': 'off',
+    'ember/no-controller-access-in-routes': 'off',
+    'ember/no-jquery': 'off',
+    'ember/no-mixins': 'off',
+    'ember/no-new-mixins': 'off',
+    'ember/require-tagless-components': 'off',
+    'unicorn/prefer-string-replace-all': 'off',
+  },
   overrides: [
     // node files
     {
