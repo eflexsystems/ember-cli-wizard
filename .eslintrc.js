@@ -20,7 +20,6 @@ module.exports = {
     browser: true,
   },
   rules: {
-    'no-unused-vars': 'off',
     'ember/no-get': 'off',
     'ember/closure-actions': 'off',
     'ember/no-actions-hash': 'off',
