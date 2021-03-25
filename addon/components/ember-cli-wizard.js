@@ -105,7 +105,7 @@ export default Component.extend({
   actions: {
     incrementStep() {
       if (this.isLastStep) {
-        this.sendAction('submitAction');
+        this.submitAction?.();
       } else {
         let currentStepObj = this.wizardData.find(
           (item) => item.step_id === this.currentStep
@@ -113,7 +113,7 @@ export default Component.extend({
 
         if (isPresent(currentStepObj.hasAction) && currentStepObj.hasAction) {
           this.set('wizardShowNextStep', false);
-          this.sendAction('wizardStepChangeAction', currentStepObj);
+          this.wizardStepChangeAction?.(currentStepObj);
         } else {
           this.changeWizardStep('next');
         }
@@ -122,14 +122,14 @@ export default Component.extend({
 
     decrementStep() {
       if (this.isFirstStep) {
-        this.sendAction('cancelAction');
+        this.cancelAction?.();
       } else {
         this.changeWizardStep('prev');
       }
     },
 
     deleteAction() {
-      this.sendAction('deleteAction');
+      this.deleteAction?.();
     },
   },
 });
