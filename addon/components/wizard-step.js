@@ -49,18 +49,4 @@ export default Component.extend({
       return this.isCurrent && this.wizardCurrentState?.animating;
     }
   ),
-
-  slidingIn: computed('stepId', 'wizardCurrentState.animating', function () {
-    let wizardCurrentState = this.wizardCurrentState;
-
-    if (!isPresent(wizardCurrentState)) {
-      return false;
-    }
-
-    if (wizardCurrentState.direction === 'next') {
-      return this.stepId === wizardCurrentState.currentStep + 1;
-    } else {
-      return this.stepId === wizardCurrentState.currentStep - 1;
-    }
-  }),
 });
