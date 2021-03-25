@@ -23,7 +23,6 @@ module.exports = {
     'ember/no-actions-hash': 'off',
     'ember/no-side-effects': 'off',
     'ember/no-classic-classes': 'off',
-    'ember/avoid-leaking-state-in-ember-objects': 'off',
     'ember/no-classic-components': 'off',
     'ember/no-component-lifecycle-hooks': 'off',
   },
