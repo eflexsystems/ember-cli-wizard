@@ -20,7 +20,7 @@ export default Component.extend({
         return '';
       }
 
-      if (this.isCurrent && wizardCurrentState.isAnimating) {
+      if (this.isCurrent && wizardCurrentState.animating) {
         if (wizardCurrentState.direction === 'next') {
           return 'exit slide-left';
         }
