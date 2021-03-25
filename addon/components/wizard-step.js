@@ -3,52 +3,50 @@ import { computed } from '@ember/object';
 import Component from '@ember/component';
 
 export default Component.extend({
-    tagName: '',
+  tagName: '',
 
-    isCurrent: computed('wizardCurrentState.currentStep', function() {
-        if (isPresent(this.get('wizardCurrentState'))) {
-            if (this.get('stepId') === this.get('wizardCurrentState.currentStep')) {
-                return true;
-            }
+  isCurrent: computed('stepId', 'wizardCurrentState.currentStep', function () {
+    return this.stepId === this.wizardCurrentState?.currentStep;
+  }),
+
+  slidingInClasses: computed(
+    'isCurrent',
+    'wizardCurrentState.{animating,direction}',
+    'stepId',
+    function () {
+      let wizardCurrentState = this.wizardCurrentState;
+
+      if (!isPresent(wizardCurrentState)) {
+        return '';
+      }
+
+      if (this.isCurrent && wizardCurrentState.animating) {
+        if (wizardCurrentState.direction === 'next') {
+          return 'exit slide-left';
         }
+        return 'exit slide-right';
+      }
 
-        return false;
-    }),
+      if (
+        wizardCurrentState.direction === 'next' &&
+        this.stepId == wizardCurrentState.currentStep + 1
+      ) {
+        return 'enter slide-left';
+      }
 
-    slidingOut: computed('wizardCurrentState.animating', function() {
-        if (isPresent(this.get('wizardCurrentState'))) {
-            if (this.get('isCurrent') && this.get('wizardCurrentState.animating')) {
-                if (this.get('wizardCurrentState.direction') === 'next') {
-                    this.set('slidingInClasses', 'exit slide-left');
-                } else {
-                    this.set('slidingInClasses', 'exit slide-right');
-                }
+      if (this.stepId === wizardCurrentState.currentStep - 1) {
+        return 'enter slide-right';
+      }
 
-                return true;
-            }
-        }
+      return '';
+    }
+  ),
 
-        return false;
-    }),
-
-    slidingIn: computed('wizardCurrentState.animating', function() {
-        let wizardCurrentState = this.get('wizardCurrentState');
-        if (isPresent(wizardCurrentState)) {
-            if (wizardCurrentState.direction === 'next') {
-                let nextStepId = Number(wizardCurrentState.currentStep) + 1;
-                if (Number(this.get('stepId')) === nextStepId) {
-                    this.set('slidingInClasses', 'enter slide-left');
-                    return true;
-                }
-            } else {
-                let prevStepId = Number(wizardCurrentState.currentStep) - 1;
-                if (Number(this.get('stepId')) === prevStepId) {
-                    this.set('slidingInClasses', 'enter slide-right');
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    })
+  slidingOut: computed(
+    'isCurrent',
+    'wizardCurrentState.{animating,direction}',
+    function () {
+      return this.isCurrent && this.wizardCurrentState?.animating;
+    }
+  ),
 });

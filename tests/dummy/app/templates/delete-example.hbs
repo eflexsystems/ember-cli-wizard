@@ -1,23 +1,15 @@
 <h2 style="margin-top:0px">Delete Example</h2>
 
-{{#ember-cli-wizard
-    wizardData=wizardData
-    submitAction="submitAction"
-    cancelAction="cancelAction"
-    deleteAction="deleteAction"
-    showDelete=true
-    animationDuration=700
-    as |currentState|
-}}
-    {{#currentState.step stepId="1" wizardCurrentState=currentState}}
+<EmberCliWizard @wizardData={{this.wizardData}} @submitAction={{action "submitAction"}} @cancelAction={{action "cancelAction"}} @deleteAction={{action "deleteAction"}} @showDelete={{true}} @animationDuration={{700}} as |currentState|>
+    <currentState.step @stepId={{1}} @wizardCurrentState={{currentState}}>
         <p>Step 1</p>
-    {{/currentState.step}}
+    </currentState.step>
 
-    {{#currentState.step stepId="2" wizardCurrentState=currentState}}
+    <currentState.step @stepId={{2}} @wizardCurrentState={{currentState}}>
         <p>Step 2</p>
-    {{/currentState.step}}
+    </currentState.step>
 
-    {{#currentState.step stepId="3" wizardCurrentState=currentState}}
+    <currentState.step @stepId={{3}} @wizardCurrentState={{currentState}}>
         <p>Step 3</p>
-    {{/currentState.step}}
-{{/ember-cli-wizard}}
+    </currentState.step>
+</EmberCliWizard>

@@ -7,11 +7,11 @@
 <div class="col-xs-12" style="margin-top:20px">
     <div class="col-xs-12 col-sm-3">
         <ul class="list-group">
-            {{#link-to 'basic-example' class="list-group-item"}}Basic Example{{/link-to}}
-            {{#link-to 'form-example' class="list-group-item"}}Form Example{{/link-to}}
-            {{#link-to 'async-example' class="list-group-item"}}Async Example{{/link-to}}
-            {{#link-to 'delete-example' class="list-group-item"}}Delete Example{{/link-to}}
-            {{#link-to 'no-animation-example' class="list-group-item"}}No Animation Example{{/link-to}}
+            <LinkTo @route="basic-example" class="list-group-item">Basic Example</LinkTo>
+            <LinkTo @route="form-example" class="list-group-item">Form Example</LinkTo>
+            <LinkTo @route="async-example" class="list-group-item">Async Example</LinkTo>
+            <LinkTo @route="delete-example" class="list-group-item">Delete Example</LinkTo>
+            <LinkTo @route="no-animation-example" class="list-group-item">No Animation Example</LinkTo>
         </ul>
     </div>
     <div class="col-xs-12 col-sm-9">

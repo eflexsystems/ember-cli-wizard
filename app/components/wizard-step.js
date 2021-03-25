@@ -1,1 +1,1 @@
-export { default } from 'ember-cli-wizard/components/wizard-step';
+export { default } from '@eflexsystems/ember-cli-wizard/components/wizard-step';

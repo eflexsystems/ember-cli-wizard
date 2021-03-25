@@ -1,24 +1,22 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend({
+  init() {
+    this._super(...arguments);
+    this.set('wizardData', [
+      { step_id: 1, header_label: '1. First Step' },
+      { step_id: 2, header_label: '2. Second Step' },
+      { step_id: 3, header_label: '3. Third Step' },
+    ]);
+  },
 
-    wizardData: [
-        {'step_id': '1', 'header_label': '1. First Step'},
-        {'step_id': '2', 'header_label': '2. Second Step'},
-        {'step_id': '3', 'header_label': '3. Third Step'}
-    ],
+  actions: {
+    cancelAction() {},
 
-    actions: {
+    submitAction() {},
 
-        cancelAction() {
-        },
-
-        submitAction() {
-        },
-
-        deleteAction() {
-            window.alert('Are you sure you want to delete?');
-        }
-
-    }
+    deleteAction() {
+      window.alert('Are you sure you want to delete?');
+    },
+  },
 });
