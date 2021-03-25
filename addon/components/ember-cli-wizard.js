@@ -54,7 +54,7 @@ export default Component.extend({
     },
 
     wellClass: computed('showWell', function() {
-        if (this.get('showWell') === true) {
+        if (this.showWell === true) {
             return 'well';
         }
 
@@ -72,13 +72,13 @@ export default Component.extend({
     didUpdateAttrs() {
         this._super(...arguments);
 
-        if (this.get('wizardShowNextStep') === true) {
+        if (this.wizardShowNextStep === true) {
             this.changeWizardStep('next');
         }
     },
 
     isLastStep: computed('currentStep', function() {
-        if (Number(this.get('currentStep')) === this.get('wizardData.length')) {
+        if (Number(this.currentStep) === this.get('wizardData.length')) {
             return true;
         }
 
@@ -86,7 +86,7 @@ export default Component.extend({
     }),
 
     isFirstStep: computed('currentStep', function() {
-        if (Number(this.get('currentStep')) === 1) {
+        if (Number(this.currentStep) === 1) {
             return true;
         }
 
@@ -94,8 +94,8 @@ export default Component.extend({
     }),
 
     changeWizardStep(direction) {
-        if (this.get('animate')) {
-            if (this.get('isAnimating')) {
+        if (this.animate) {
+            if (this.isAnimating) {
                 return false;
             }
             this.set('isAnimating', true);
@@ -103,12 +103,12 @@ export default Component.extend({
 
         this.set('direction', direction);
 
-        if (this.get('animate')) {
+        if (this.animate) {
             // Stop the animation after a while
             later(this, function() {
                 this._updateCurrentStep(direction);
                 this.set('isAnimating', false);
-            }, this.get('animationDuration'));
+            }, this.animationDuration);
         } else {
             this._updateCurrentStep(direction);
         }
@@ -117,21 +117,21 @@ export default Component.extend({
     _updateCurrentStep(direction) {
         let currentStep;
         if (direction === 'next') {
-            currentStep = Number(this.get('currentStep')) + 1 + '';
+            currentStep = Number(this.currentStep) + 1 + '';
         } else {
-            currentStep = Number(this.get('currentStep')) - 1 + '';
+            currentStep = Number(this.currentStep) - 1 + '';
         }
         this.set('currentStep', currentStep);
     },
 
     actions: {
         incrementStep() {
-            if (this.get('isLastStep')) {
+            if (this.isLastStep) {
                 // perform submit action
                 this.sendAction('submitAction');
             } else {
-                let currentStepObj = this.get('wizardData').find((item) => {
-                    if (item['step_id'] === this.get('currentStep')) {
+                let currentStepObj = this.wizardData.find((item) => {
+                    if (item['step_id'] === this.currentStep) {
                         return true;
                     }
                 });
@@ -146,7 +146,7 @@ export default Component.extend({
         },
 
         decrementStep() {
-            if (this.get('isFirstStep')) {
+            if (this.isFirstStep) {
                 this.sendAction('cancelAction');
             } else {
                 this.changeWizardStep('prev');

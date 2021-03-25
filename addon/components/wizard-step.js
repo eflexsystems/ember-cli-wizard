@@ -6,8 +6,8 @@ export default Component.extend({
     tagName: '',
 
     isCurrent: computed('wizardCurrentState.currentStep', function() {
-        if (isPresent(this.get('wizardCurrentState'))) {
-            if (this.get('stepId') === this.get('wizardCurrentState.currentStep')) {
+        if (isPresent(this.wizardCurrentState)) {
+            if (this.stepId === this.get('wizardCurrentState.currentStep')) {
                 return true;
             }
         }
@@ -16,8 +16,8 @@ export default Component.extend({
     }),
 
     slidingOut: computed('wizardCurrentState.animating', function() {
-        if (isPresent(this.get('wizardCurrentState'))) {
-            if (this.get('isCurrent') && this.get('wizardCurrentState.animating')) {
+        if (isPresent(this.wizardCurrentState)) {
+            if (this.isCurrent && this.get('wizardCurrentState.animating')) {
                 if (this.get('wizardCurrentState.direction') === 'next') {
                     this.set('slidingInClasses', 'exit slide-left');
                 } else {
@@ -32,17 +32,17 @@ export default Component.extend({
     }),
 
     slidingIn: computed('wizardCurrentState.animating', function() {
-        let wizardCurrentState = this.get('wizardCurrentState');
+        let wizardCurrentState = this.wizardCurrentState;
         if (isPresent(wizardCurrentState)) {
             if (wizardCurrentState.direction === 'next') {
                 let nextStepId = Number(wizardCurrentState.currentStep) + 1;
-                if (Number(this.get('stepId')) === nextStepId) {
+                if (Number(this.stepId) === nextStepId) {
                     this.set('slidingInClasses', 'enter slide-left');
                     return true;
                 }
             } else {
                 let prevStepId = Number(wizardCurrentState.currentStep) - 1;
-                if (Number(this.get('stepId')) === prevStepId) {
+                if (Number(this.stepId) === prevStepId) {
                     this.set('slidingInClasses', 'enter slide-right');
                     return true;
                 }
