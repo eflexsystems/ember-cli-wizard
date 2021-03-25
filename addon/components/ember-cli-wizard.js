@@ -1,5 +1,4 @@
 import { later } from '@ember/runloop';
-import { isPresent } from '@ember/utils';
 import { computed } from '@ember/object';
 import Component from '@ember/component';
 
@@ -109,7 +108,7 @@ export default Component.extend({
           (item) => item.step_id === this.currentStep
         );
 
-        if (isPresent(currentStepObj.hasAction) && currentStepObj.hasAction) {
+        if (currentStepObj.hasAction) {
           this.set('wizardShowNextStep', false);
           this.wizardStepChangeAction?.(currentStepObj);
         } else {
