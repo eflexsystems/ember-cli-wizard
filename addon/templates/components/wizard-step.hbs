@@ -1,6 +1,6 @@
 <div class="wizard-panel
-    {{if isCurrent 'current'}}
-    {{if slidingOut slidingInClasses}}
-    {{if slidingIn slidingOutClasses}}">
+    {{if this.isCurrent 'current'}}
+    {{if this.slidingOut this.slidingInClasses}}
+    {{if this.slidingIn this.slidingOutClasses}}">
         {{yield}}
 </div>

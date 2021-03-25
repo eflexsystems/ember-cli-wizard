@@ -1,24 +1,24 @@
 <h2 style="margin-top:0px">Form Example</h2>
 
 <form class="form-horizontal" role="form">
-    <EmberCliWizard @wizardData={{wizardData}} @submitAction="submitAction" @cancelAction="cancelAction" @animationDuration={{700}} as |currentState|>
+    <EmberCliWizard @wizardData={{this.wizardData}} @submitAction="submitAction" @cancelAction="cancelAction" @animationDuration={{700}} as |currentState|>
         <currentState.step @stepId="1" @wizardCurrentState={{currentState}}>
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 control-label" for="title">Username</label>
                 <div class="col-xs-12 col-sm-9" data-test="loadable-title">
-                    <Input class="form-control" @name="title" @value={{username}} />
+                    <Input class="form-control" @name="title" @value={{this.username}} />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 control-label" for="description">Password</label>
                 <div class="col-xs-12 col-sm-9" data-test="loadable-description">
-                    <Input @type="password" class="form-control" @name="description" @value={{password}} />
+                    <Input @type="password" class="form-control" @name="description" @value={{this.password}} />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 control-label" for="description">Confirm Password</label>
                 <div class="col-xs-12 col-sm-9" data-test="loadable-description">
-                    <Input @type="password" class="form-control" @name="description" @value={{confirmPassword}} />
+                    <Input @type="password" class="form-control" @name="description" @value={{this.confirmPassword}} />
                 </div>
             </div>
         </currentState.step>
@@ -27,19 +27,19 @@
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 control-label" for="title">First Name</label>
                 <div class="col-xs-12 col-sm-9" data-test="loadable-title">
-                    <Input class="form-control" @name="title" @value={{firstName}} />
+                    <Input class="form-control" @name="title" @value={{this.firstName}} />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 control-label" for="description">Last Name</label>
                 <div class="col-xs-12 col-sm-9" data-test="loadable-description">
-                    <Input class="form-control" @name="description" @value={{lastName}} />
+                    <Input class="form-control" @name="description" @value={{this.lastName}} />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 control-label" for="description">Email</label>
                 <div class="col-xs-12 col-sm-9" data-test="loadable-description">
-                    <Input class="form-control" @name="description" @value={{email}} />
+                    <Input class="form-control" @name="description" @value={{this.email}} />
                 </div>
             </div>
         </currentState.step>
@@ -48,25 +48,25 @@
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 control-label" for="title">Street</label>
                 <div class="col-xs-12 col-sm-9" data-test="loadable-title">
-                    <Input class="form-control" @name="title" @value={{street}} />
+                    <Input class="form-control" @name="title" @value={{this.street}} />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 control-label" for="description">City</label>
                 <div class="col-xs-12 col-sm-9" data-test="loadable-description">
-                    <Input class="form-control" @name="description" @value={{city}} />
+                    <Input class="form-control" @name="description" @value={{this.city}} />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 control-label" for="description">State</label>
                 <div class="col-xs-12 col-sm-9" data-test="loadable-description">
-                    <Input class="form-control" @name="description" @value={{state}} />
+                    <Input class="form-control" @name="description" @value={{this.state}} />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 control-label" for="description">Country</label>
                 <div class="col-xs-12 col-sm-9" data-test="loadable-description">
-                    <Input class="form-control" @name="description" @value={{country}} />
+                    <Input class="form-control" @name="description" @value={{this.country}} />
                 </div>
             </div>
         </currentState.step>

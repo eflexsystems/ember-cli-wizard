@@ -1,6 +1,6 @@
 <h2 style="margin-top:0px">Basic Example</h2>
 
-<EmberCliWizard @wizardData={{wizardData}} @submitAction="submitAction" @cancelAction="cancelAction" @animationDuration={{700}} as |currentState|>
+<EmberCliWizard @wizardData={{this.wizardData}} @submitAction="submitAction" @cancelAction="cancelAction" @animationDuration={{700}} as |currentState|>
     <currentState.step @stepId="1" @wizardCurrentState={{currentState}}>
         <p>Step 1</p>
     </currentState.step>
