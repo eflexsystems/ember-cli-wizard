@@ -15,31 +15,31 @@ This addon uses the 'hash' helper and hence requires ember 2.3 or above. If you 
 ## Usage
 
 ````Handlebars
-{{#ember-cli-wizard
-    wizardData=wizardData
-    submitAction='submitAction'
-    cancelAction='cancelAction'
+<EmberCliWizard
+    wizardData={{this.wizardData}}
+    submitAction={{action 'submitAction'}}
+    cancelAction={{action 'cancelAction'}}
     as |currentState|
-}}
-    {{#currentState.step stepId="1" wizardCurrentState=currentState}}
+/>
+    <currentState.step @stepId={{1}} @wizardCurrentState={{currentState}}>
         <p>Step 1</p>
-    {{/currentState.step}}
+    </currentState.step>
 
-    {{#currentState.step stepId="2" wizardCurrentState=currentState}}
+    <currentState.step @stepId={{2}} @wizardCurrentState={{currentState}}>
         <p>Step 2</p>
-    {{/currentState.step}}
+    </currentState.step>
 
-    {{#currentState.step stepId="3" wizardCurrentState=currentState}}
+    <currentState.step @stepId={{3}} @wizardCurrentState={{currentState}}>
         <p>Step 3</p>
-    {{/currentState.step}}
-{{/ember-cli-wizard}}
+    </currentState.step>
+</EmberCliWizard>
 ````
 
 ```javascript
 wizardData: [
-    {'step_id': '1', 'header_label': '1. First Step'},
-    {'step_id': '2', 'header_label': '2. Second Step'},
-    {'step_id': '3', 'header_label': '3. Third Step'}
+    {'step_id': 1, 'header_label': '1. First Step'},
+    {'step_id': 2, 'header_label': '2. Second Step'},
+    {'step_id': 3, 'header_label': '3. Third Step'}
 ]
 ```
 
@@ -52,9 +52,7 @@ The 'stepId' attribute value of each step needs to match the 'step_id' value in 
 
 ### Bootstrap
 
-This addon has a dependency on ember-bootstrap.
-Follow the instructions here in order to include or exclude fonts and styles in your app:
-http://kaliber5.github.io/ember-bootstrap/getting-started/
+This addon requires bootstrap
 
 ### Options
 
@@ -91,9 +89,7 @@ Use the following classes to override animation styles:
 By default the addon adds the bootstrap 'well' class to the main component. To remove the class set 'showWell' to false.
 
 ```Handlebars
-{{#ember-cli-wizard
-    showWell=false
-}}
+<EmberCliWizard @showWell={{false}} />
 ```
 
 To override the default styles of the wizard steps, use the following classes:
@@ -113,9 +109,9 @@ To perform an async operation after an individual step, use the 'hasAction' prop
 //js
 
 wizardData: [
-    {'step_id': '1', 'header_label': '1. First Step', 'hasAction': true},
-    {'step_id': '2', 'header_label': '2. Second Step'},
-    {'step_id': '3', 'header_label': '3. Third Step'}
+    {'step_id': 1, 'header_label': '1. First Step', 'hasAction': true},
+    {'step_id': 2, 'header_label': '2. Second Step'},
+    {'step_id': 3, 'header_label': '3. Third Step'}
 ]
 
 wizardShowNextStep: true,
@@ -123,7 +119,7 @@ wizardShowNextStep: true,
 actions: {
 
     wizardStepChanged(wizardStep) {
-        if (wizardStep['step_id'] === '1') {
+        if (wizardStep.step_id === 1) {
             Ember.run.later(() => {
                 this.set('wizardShowNextStep', true);                    
             }, 2000);
@@ -136,15 +132,15 @@ actions: {
 ```Handlebars
 //hbs
 
-{{#ember-cli-wizard
-    wizardData=wizardData
-    submitAction="submitAction"
-    cancelAction="cancelAction"
-    wizardShowNextStep=wizardShowNextStep
-    wizardStepChangeAction="wizardStepChanged"
-    animationDuration=700
+<EmberCliWizard
+    @wizardData={{this.wizardData}}
+    @submitAction={{action "submitAction"}}
+    @cancelAction={{action "cancelAction"}}
+    @wizardShowNextStep={{this.wizardShowNextStep}}
+    @wizardStepChangeAction={{action "wizardStepChanged"}}
+    @animationDuration={{700}}
     as |currentState|
-}}
+/>
 ```
 
 ### Buttons
@@ -152,17 +148,15 @@ actions: {
 To customize the button labels, set the 'buttonLabels' hash
 
 ```Handlebars
-{{#ember-cli-wizard
-    buttonLabels=customButtonLabels
-}}
+<EmberCliWizard @buttonLabels=this.customButtonLabels />
 ```
 
 ```javascript
 customButtonLabels: {
-    'nextLabel': 'Next',
-    'finishLabel': 'Finish',
-    'cancelLabel': 'Cancel',
-    'prevLabel': 'Previous'
+    nextLabel: 'Next',
+    finishLabel: 'Finish',
+    cancelLabel: 'Cancel',
+    prevLabel: 'Previous'
 },
 ```
 
