@@ -1,6 +1,6 @@
 <h2 style="margin-top:0px">Form Example</h2>
 
-<form class="form-horizontal" role="form">
+<form class="form-horizontal">
     <EmberCliWizard @wizardData={{this.wizardData}} @submitAction="submitAction" @cancelAction="cancelAction" @animationDuration={{700}} as |currentState|>
         <currentState.step @stepId="1" @wizardCurrentState={{currentState}}>
             <div class="form-group">
