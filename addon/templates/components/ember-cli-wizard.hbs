@@ -1,52 +1,54 @@
-{{#if this.showHeader}}
-    <div class="row wizard-header">
-        <div class="{{if this.showDelete 'col-xs-10' 'col-xs-12'}} no-padding">
-            <ul class="nav nav-pills col-xs-12">
-                {{#each this.wizardData as |item|}}
-                    <li role="presentation" class="{{if (eq this.currentStep item.step_id) 'active' 'disabled'}}">
-                        <a href="#" {{action 'handleNavClick'}}>{{item.header_label}}</a>
-                    </li>
-                {{/each}}
-            </ul>
-        </div>
-        {{#if this.showDelete}}
-            <div class="col-xs-2 no-padding">
-                <button {{action "deleteAction"}}
-                    class="pull-right delete-entity-button"
-                    data-toggle="tooltip"
-                    data-placement="bottom"
-                    title="Delete Configuration Object">
-                        <span class="glyphicon glyphicon-trash" />
-                </button>
+<div class="container-fluid {{this.wellClass}}">
+    {{#if this.showHeader}}
+        <div class="row wizard-header">
+            <div class="{{if this.showDelete 'col-xs-10' 'col-xs-12'}} no-padding">
+                <ul class="nav nav-pills col-xs-12">
+                    {{#each this.wizardData as |item|}}
+                        <li role="presentation" class="{{if (eq this.currentStep item.step_id) 'active' 'disabled'}}">
+                            <a href="#" {{action 'handleNavClick'}}>{{item.header_label}}</a>
+                        </li>
+                    {{/each}}
+                </ul>
             </div>
-        {{/if}}
-    </div>
-{{/if}}
+            {{#if this.showDelete}}
+                <div class="col-xs-2 no-padding">
+                    <button {{action "deleteAction"}}
+                        class="pull-right delete-entity-button"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="Delete Configuration Object">
+                            <span class="glyphicon glyphicon-trash" />
+                    </button>
+                </div>
+            {{/if}}
+        </div>
+    {{/if}}
 
-<div class="row panel-wrapper {{if this.isAnimating 'animating'}}">
-    {{yield (hash
-        currentStep=this.currentStep
-        animating=this.isAnimating
-        direction=this.direction
-        step=(component 'wizard-step'))
-    }}
+    <div class="row panel-wrapper {{if this.isAnimating 'animating'}}">
+        {{yield (hash
+            currentStep=this.currentStep
+            animating=this.isAnimating
+            direction=this.direction
+            step=(component 'wizard-step'))
+        }}
+    </div>
+
+    {{#if this.wizardData}}
+        <div class="row wizard-footer">
+            <button class="btn btn-default" {{action "decrementStep"}}>
+                {{#if this.isFirstStep}}
+                    {{this.cancelBtnLabel}}
+                {{else}}
+                    {{this.previousBtnLabel}}
+                {{/if}}
+            </button>
+            <button class="btn btn-primary" {{action "incrementStep"}}>
+                {{#if this.isLastStep}}
+                    {{this.finishBtnLabel}}
+                {{else}}
+                    {{this.nextBtnLabel}}
+                {{/if}}
+            </button>
+        </div>
+    {{/if}}
 </div>
-
-{{#if this.wizardData}}
-    <div class="row wizard-footer">
-        <button class="btn btn-default" {{action "decrementStep"}}>
-            {{#if this.isFirstStep}}
-                {{this.cancelBtnLabel}}
-            {{else}}
-                {{this.previousBtnLabel}}
-            {{/if}}
-        </button>
-        <button class="btn btn-primary" {{action "incrementStep"}}>
-            {{#if this.isLastStep}}
-                {{this.finishBtnLabel}}
-            {{else}}
-                {{this.nextBtnLabel}}
-            {{/if}}
-        </button>
-    </div>
-{{/if}}

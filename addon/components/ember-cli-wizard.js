@@ -4,11 +4,8 @@ import { computed } from '@ember/object';
 import Component from '@ember/component';
 
 export default Component.extend({
+    tagName: '',
     currentStep: '1',
-
-    classNameBindings: ['wellClass'],
-
-    classNames: ['container-fluid'],
 
     showHeader: true,
 
