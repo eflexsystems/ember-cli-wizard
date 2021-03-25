@@ -9,44 +9,58 @@ export default Component.extend({
     return this.stepId === this.wizardCurrentState?.currentStep;
   }),
 
+  slidingInClasses: computed(
+    'isCurrent',
+    'wizardCurrentState.{animating,direction}',
+    'stepId',
+    function () {
+      let wizardCurrentState = this.wizardCurrentState;
+
+      if (!isPresent(wizardCurrentState)) {
+        return '';
+      }
+
+      if (this.isCurrent && wizardCurrentState.isAnimating) {
+        if (wizardCurrentState.direction === 'next') {
+          return 'exit slide-left';
+        }
+        return 'exit slide-right';
+      }
+
+      if (
+        wizardCurrentState.direction === 'next' &&
+        this.stepId == wizardCurrentState.currentStep + 1
+      ) {
+        return 'enter slide-left';
+      }
+
+      if (this.stepId === wizardCurrentState.currentStep - 1) {
+        return 'enter slide-right';
+      }
+
+      return '';
+    }
+  ),
+
   slidingOut: computed(
     'isCurrent',
     'wizardCurrentState.{animating,direction}',
     function () {
-      if (isPresent(this.wizardCurrentState)) {
-        if (this.isCurrent && this.wizardCurrentState?.animating) {
-          if (this.wizardCurrentState?.direction === 'next') {
-            this.set('slidingInClasses', 'exit slide-left');
-          } else {
-            this.set('slidingInClasses', 'exit slide-right');
-          }
-
-          return true;
-        }
-      }
-
-      return false;
+      return this.isCurrent && this.wizardCurrentState?.animating;
     }
   ),
 
   slidingIn: computed('stepId', 'wizardCurrentState.animating', function () {
     let wizardCurrentState = this.wizardCurrentState;
-    if (isPresent(wizardCurrentState)) {
-      if (wizardCurrentState.direction === 'next') {
-        let nextStepId = wizardCurrentState.currentStep + 1;
-        if (this.stepId === nextStepId) {
-          this.set('slidingInClasses', 'enter slide-left');
-          return true;
-        }
-      } else {
-        let prevStepId = wizardCurrentState.currentStep - 1;
-        if (this.stepId === prevStepId) {
-          this.set('slidingInClasses', 'enter slide-right');
-          return true;
-        }
-      }
+
+    if (!isPresent(wizardCurrentState)) {
+      return false;
     }
 
-    return false;
+    if (wizardCurrentState.direction === 'next') {
+      return this.stepId === wizardCurrentState.currentStep + 1;
+    } else {
+      return this.stepId === wizardCurrentState.currentStep - 1;
+    }
   }),
 });

@@ -1,6 +1,6 @@
-import { later } from '@ember/runloop';
 import { computed } from '@ember/object';
 import Component from '@ember/component';
+import { task, timeout } from 'ember-concurrency';
 
 export default Component.extend({
   tagName: '',
@@ -13,8 +13,6 @@ export default Component.extend({
   animate: true,
 
   animationDuration: 300,
-
-  isAnimating: false,
 
   direction: null,
 
@@ -44,6 +42,18 @@ export default Component.extend({
 
   isFirstStep: computed.equal('currentStep', 1),
 
+  changeWizardStep: task(function* (direction) {
+    this.set('direction', direction);
+
+    if (this.animate) {
+      // Stop the animation after a while
+      yield timeout(this.animationDuration);
+      this._updateCurrentStep(direction);
+    } else {
+      this._updateCurrentStep(direction);
+    }
+  }),
+
   init() {
     this._super(...arguments);
     if (!this.buttonLabels) {
@@ -60,32 +70,7 @@ export default Component.extend({
     this._super(...arguments);
 
     if (this.wizardShowNextStep) {
-      this.changeWizardStep('next');
-    }
-  },
-
-  changeWizardStep(direction) {
-    if (this.animate) {
-      if (this.isAnimating) {
-        return false;
-      }
-      this.set('isAnimating', true);
-    }
-
-    this.set('direction', direction);
-
-    if (this.animate) {
-      // Stop the animation after a while
-      later(
-        this,
-        function () {
-          this._updateCurrentStep(direction);
-          this.set('isAnimating', false);
-        },
-        this.animationDuration
-      );
-    } else {
-      this._updateCurrentStep(direction);
+      this.changeWizardStep.perform('next');
     }
   },
 
@@ -112,7 +97,7 @@ export default Component.extend({
           this.set('wizardShowNextStep', false);
           this.wizardStepChangeAction?.(currentStepObj);
         } else {
-          this.changeWizardStep('next');
+          this.changeWizardStep.perform('next');
         }
       }
     },
@@ -121,7 +106,7 @@ export default Component.extend({
       if (this.isFirstStep) {
         this.cancelAction?.();
       } else {
-        this.changeWizardStep('prev');
+        this.changeWizardStep.perform('prev');
       }
     },
 
